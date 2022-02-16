@@ -31,15 +31,13 @@ function onFormSubmit(e) {
 };
 
 function populateFormOutput() {
-    const saveMessage = localStorage.getItem(STORAGE_KEY)
-    const outputText = JSON.parse(saveMessage);
-    if (saveMessage) {
-        refs.email.value = outputText.email;
-        refs.textarea.value = outputText.message;
-    }
+     const saveMassage = JSON.parse(localStorage.getItem(STORAGE_KEY))
     
-    formData = {
-        email: outputText.email,
-        message: outputText.message
-    }
-};
+    if (!saveMassage) return;
+    
+    if (saveMassage.email)
+        refs.form.email.value = saveMassage.email;        
+    if (saveMassage.message)
+        refs.form.message.value = saveMassage.message;  
+  
+}
