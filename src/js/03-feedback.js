@@ -5,18 +5,23 @@ import '../css/common.css';
 
 const refs = {
     form: document.querySelector('.feedback-form'),
-    email: document.querySelector('.feedback-form input'),
-    textarea: document.querySelector('.feedback-form textarea')
+    // email: document.querySelector('.feedback-form input'),
+    // textarea: document.querySelector('.feedback-form textarea')
 }
 
 const STORAGE_KEY = "feedback-form-state";
 
-const formData = {};
+populateFormOutput();
+
+const formData = {
+    email: refs.form.email.value,
+    message: refs.form.message.value, 
+};
 
 refs.form.addEventListener('input', throttle(onFormInput, 500));
 refs.form.addEventListener('submit', onFormSubmit);
 
-populateFormOutput();
+
 
 function onFormInput(e) { 
   formData[e.target.name] = e.target.value;
@@ -31,13 +36,18 @@ function onFormSubmit(e) {
 };
 
 function populateFormOutput() {
-     const saveMassage = JSON.parse(localStorage.getItem(STORAGE_KEY))
+    const saveMassage = JSON.parse(localStorage.getItem(STORAGE_KEY))
     
     if (!saveMassage) return;
     
     if (saveMassage.email)
-        refs.form.email.value = saveMassage.email;        
+        refs.form.email.value = saveMassage.email;
     if (saveMassage.message)
-        refs.form.message.value = saveMassage.message;  
+        refs.form.message.value = saveMassage.message;
+    
+    // formData = {
+    //     email: saveMassage.email,
+    //     message: saveMassage.message
   
+    // }
 }
